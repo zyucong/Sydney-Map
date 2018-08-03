@@ -185,7 +185,7 @@
     })
   });
   
-  var startPoint = new ol.Feature();	//起点终点单独一个layer
+  var startPoint = new ol.Feature();	//start point and dest point are on different layer
   var destPoint = new ol.Feature();
   var startSource = new ol.source.Vector();
   var destSource = new ol.source.Vector();
@@ -236,9 +236,9 @@
 	});
 	map.addOverlay(popup);
 	
-/*******************以上定义一堆之后要用到的变量**************/
-/*******************以下处理数据**************************/
-	//点击查询路线按钮后显示可选起始点
+/*******************Define a lot of variables above that would be used later**************/
+/*******************Work with data below**************************/
+	//Clicking Search Button and display all the availale points of interest on the map
 	function tog(v){return v?'addClass':'removeClass';} 
 	$(document).on('input', '.clearable', function(){
 		$(this)[tog(this.value)]('x');
@@ -312,14 +312,14 @@
 		//console.log(data);
 		parse_data = jQuery.parseJSON(data);
 		console.log(parse_data);
-		if(parse_data != false){		//找不到地理信息时不至于崩掉
+		if(parse_data != false){		//To avoid crash when no points has been found
 			$(".warning").html('');
 			startCoord = [];
 			parsePoint(parse_data, 'start');
 			console.log(startSource.getFeatures().length);
 			//if ( route == 'start' ){
 			startPointLayer.setSource(startSource);
-			map.addLayer(startPointLayer);	//显示可选起始点
+			map.addLayer(startPointLayer);	//Display all the available start point
 		}else{
 			$(".warning").html('<p>Not Found</p>');
 		}
@@ -351,7 +351,7 @@
 					id: i,
 					category: 'start'
 				});		
-				option.setStyle(new ol.style.Style({		//设定marker的样式
+				option.setStyle(new ol.style.Style({		//Set the design of marker
 					image: new ol.style.Icon({
 						src: 'ol3/red16.png',
 						opacity: 0.8
@@ -381,7 +381,7 @@
 					id: i,
 					category: 'end'
 				});			
-				option.setStyle(new ol.style.Style({		//设定marker的样式
+				option.setStyle(new ol.style.Style({		//set the design of marker 
 					image: new ol.style.Icon({
 						src: 'ol3/blue16.png',
 						opacity: 0.8
@@ -466,7 +466,8 @@
 	});
 	
 	$("#routing").click(function(){
-		//找到需要移除的layer并进行移除（不能移除不存在的layer）
+		//Find the layer the needs removing and remove it
+		// However we can't remove layers that are not exist
 		//removeLayer(result);
 		if($("#location").val() == ''){
 			$(".warning").html('<p>Please input something</p>');
@@ -491,7 +492,7 @@
 	
 	$("#pgrouting").click(function(){
 		if($("#start").val() == '' || $("#end").val() == ''){
-			$(".warning").html('<p>请输入要搜索的地点</p>');
+			$(".warning").html('<p>Please input the place you want to search</p>');
 		}else{
 			viewparams = [];
 			startCoord = [];
@@ -562,7 +563,7 @@
 				category: category
 			});
 			if (category == 'start'){
-				option.setStyle(new ol.style.Style({		//设定marker的样式
+				option.setStyle(new ol.style.Style({		//set the design of marker
 					image: new ol.style.Icon({
 						src: 'ol3/red16.png',
 						opacity: 0.8
@@ -570,7 +571,7 @@
 				}));
 			}else if(category == 'knn'){
 				console.log('knn');
-				option.setStyle(new ol.style.Style({		//设定marker的样式
+				option.setStyle(new ol.style.Style({		//set the design of marker
 					image: new ol.style.Icon({
 						src: 'ol3/green16.png',
 						opacity: 0.8
@@ -578,7 +579,7 @@
 				}));
 			}else if(category == 'end'){
 				console.log('end');
-				option.setStyle(new ol.style.Style({		//设定marker的样式
+				option.setStyle(new ol.style.Style({		//set the design of marker
 					image: new ol.style.Icon({
 						src: 'ol3/blue16.png',
 						opacity: 0.8
@@ -621,7 +622,7 @@
 			console.log(knnSource.getFeatures());
 			knnLayer.setSource(knnSource);
 
-			map.addLayer(knnLayer);	//显示可选起始点
+			map.addLayer(knnLayer);	//Display available start point
 			console.log(map.getLayers().getLength());
 		}else{
 			$(".warning").html('<p>未找到附近符合要求的点</p>');
@@ -773,9 +774,9 @@
 		
 	});
 	
-	//处理marker的点击
+	//Deal with click on marker
 	map.on('click', function(evt) {
-		//判断是否点在备选地点上
+		//Determine whether it is clicked on available marker
 	  var feature = map.forEachFeatureAtPixel(evt.pixel,
 		  function(feature, layer) {
 			  //console.log(feature.get('category') == undefined);
@@ -799,10 +800,10 @@
 		
 		if (category == 'start'){
 			startId = feature.get('id');
-			$(choose).html('设为起点');
+			$(choose).html('Set as start point');
 		}else if(category == 'end'){
 			endId = feature.get('id');
-			$(choose).html('设为终点');
+			$(choose).html('Set as end point');
 		}
 		content.innerHTML = feature.get('name');
 	  } else {
