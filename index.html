@@ -332,11 +332,11 @@
 		endFit = [];
 		console.log(parse_routing);
 		if (parse_routing[0] == parse_routing[1] && parse_routing[0] == false){
-			$(".warning").html('<p>起点和终点均未找到</p>');
+			$(".warning").html('<p>Start Point and End Point Not Found</p>');
 		}else if (parse_routing[0] == false){
-			$(".warning").html('<p>起点未找到</p>');
+			$(".warning").html('<p>Start Point Not Found</p>');
 		}else if (parse_routing[1] == false){
-			$(".warning").html('<p>终点未找到</p>');
+			$(".warning").html('<p>End Point Not Found</p>');
 		}else{
 			$(".warning").html('');
 			$("#nearby").attr('style','display:none;');
@@ -625,7 +625,7 @@
 			map.addLayer(knnLayer);	//Display available start point
 			console.log(map.getLayers().getLength());
 		}else{
-			$(".warning").html('<p>未找到附近符合要求的点</p>');
+			$(".warning").html('<p>Suitable Point Not Found</p>');
 			rangeSource.addFeature(new ol.Feature(new ol.geom.Circle(centerPoint, $( "#slider" ).slider( "value" ) *1.3 )));
 			rangeLayer.setSource(rangeSource);
 			map.addLayer(rangeLayer);	
@@ -800,10 +800,10 @@
 		
 		if (category == 'start'){
 			startId = feature.get('id');
-			$(choose).html('Set as start point');
+			$(choose).html('Start point');
 		}else if(category == 'end'){
 			endId = feature.get('id');
-			$(choose).html('Set as end point');
+			$(choose).html('End point');
 		}
 		content.innerHTML = feature.get('name');
 	  } else {
