@@ -1,9 +1,12 @@
 # Sydney-map
+
+Link: [MyMap](http://mymap.yingcongzhu.com)
+
 ## Introduction
 
 It is a project that I have implemented before and mainly written in PHP and JavaScript. Previously it ran smoothly on my local machine (Windows). Now I manage to migrate it online.
 
-The original idea was to implement the basic feature of a map. You can visit my website to take a look on it :) [MyMap](http://mymap.yingcongzhu.com)
+The original idea was to implement the basic feature of a map. You can visit my website to take a look on it :) 
 
 The users are supposed to be able to search points of interest located in Sydney and other points of interest within a specific range around a specific point. ~~Also they are supposed to be able to plan a route between 2 points on the map.~~ 
 
