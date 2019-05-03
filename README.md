@@ -1,6 +1,6 @@
 # Sydney-map
 
-Link: [MyMap](http://mymap.yingcongzhu.com)
+Link: ~~[MyMap]()~~ Not available any more :(
 
 ## Introduction
 
